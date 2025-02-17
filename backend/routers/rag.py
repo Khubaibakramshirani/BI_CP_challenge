@@ -24,7 +24,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough, RunnableLambda
 from langchain_core.messages import HumanMessage
-from unstructured.partition.pdf import partition_pdf
+#from unstructured.partition.pdf import partition_pdf
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -33,9 +33,9 @@ logger = logging.getLogger(__name__)
 # Suppress httpx logging
 logging.getLogger("httpx").setLevel(logging.WARNING)
 
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-print(pytesseract.get_tesseract_version())  # Should print Tesseract version
+# print(pytesseract.get_tesseract_version())  # Should print Tesseract version
 
 # Initialize the FastAPI APIRouter
 router_fast_api = APIRouter()
