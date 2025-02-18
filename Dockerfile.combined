@@ -1,0 +1,31 @@
+# Build frontend
+FROM node:20 AS frontend-build
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm install --legacy-peer-deps
+COPY frontend/ ./
+RUN npm run build
+
+# Build backend with frontend assets
+FROM python:3.12
+WORKDIR /app
+
+# Copy frontend build
+COPY --from=frontend-build /app/frontend/build /app/backend/web
+
+# Install backend dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y tesseract-ocr libmagic1 poppler-utils
+
+# Copy backend code
+COPY backend /app/backend
+
+# Expose port
+EXPOSE 8000
+
+# Start command
+CMD ["uvicorn", "backend.main:app", "--host", "0.0.0.0", "--port", "8000"]
+
