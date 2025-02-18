@@ -19,7 +19,7 @@ app.add_middleware(
 # Define a root route
 @app.get("/health")
 def read_root():
-    return {"message": "Welcome to the RAG Query System"}
+    return {"message": "Welcome to the RAG Query System v1.1"}
 
 # Include the RAG router
 app.include_router(rag.router_fast_api, prefix="/api")
@@ -31,4 +31,5 @@ app.mount("/", StaticFiles(directory="backend/web", html=True), name="staticweb"
 if __name__ == "__main__":
     import uvicorn
     port = int(os.environ.get("PORT", 8000))  # Use PORT env variable or default to 8000
+    
     uvicorn.run("backend.main:app", host="0.0.0.0", port=port, reload=True)
