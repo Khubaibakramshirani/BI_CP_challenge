@@ -5,7 +5,6 @@
 
 # production
 /build
-web/
 
 venv/
 
@@ -47,7 +46,7 @@ backend/env/
 backend/venv/
 backend/.env
 .env
-backend/web/
+
 
 # Distribution / packaging
 dist/
