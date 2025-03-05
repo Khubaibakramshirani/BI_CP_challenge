@@ -1,4 +1,8 @@
 // constants.ts
-
-// Base URLs
-export const BASE_API_URL = process.env.REACT_APP_API_URL || 'http://127.0.0.1:8000/api' || '/api';
+// Determine environment
+// constants.ts
+export const BASE_API_URL = 
+  //window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
+    //? 'http://127.0.0.1:8000/api' 
+   // : `${window.location.origin}/api`;
+    `${window.location.origin}/api`;

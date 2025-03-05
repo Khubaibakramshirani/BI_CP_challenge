@@ -1,4 +1,5 @@
 /* src/App.css */
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -18,63 +19,102 @@
 }
 
 .chat-box {
-  width: 70%;
-  max-width: 900px;
+  width: 80%;  /* Increased width */
+  max-width: 1000px;  /* Increased max-width */
   height: 70vh;
   background-color: white;
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 15px;
+  padding: 25px;
   overflow-y: auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  transition: width 0.3s ease-in-out; /* Smooth transition for responsiveness */
+  gap: 15px;
 }
 
 .chat-bubble {
-  padding: 10px 15px;
-  border-radius: 20px;
-  max-width: 70%;
+  padding: 15px 20px;  /* Reduced padding */
+  border-radius: 15px;
+  max-width: 85%;  /* Increased max-width */
   word-wrap: break-word;
+  line-height: 1.4;  /* Reduced line height */
+  font-size: 1rem;  /* Base font size */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
 }
 
 .chat-bubble.user {
   align-self: flex-end;
-  background-color: #0084ff;
+  background-color: #2b7fff;
   color: white;
+  margin-left: 20px;
 }
 
 .chat-bubble.bot {
   align-self: flex-start;
-  background-color: #e5e5ea;
-  color: black;
+  background-color: #f5f7f9;
+  color: #1a1a1a;
+  margin-right: 20px;
+  white-space: normal;  /* Changed from pre-line to fix spacing */
+}
+
+.chat-bubble p {
+  margin: 0;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+  text-align: left;
 }
 
 .input-area {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  width: 70%; /* Make input area match chat-box width */
-  max-width: 900px;
+  align-items: flex-end;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 0 0 15px 15px;
+  width: 80%;
+  max-width: 1000px;
+  margin: 0 auto;
 }
 
-.input-area input {
-  flex: 1; /* Allow input to take up remaining space */
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+.question-textarea {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  resize: none;
+  overflow: hidden;
+  min-height: 44px;
+  max-height: 150px;
+  line-height: 1.5;
+  font-family: inherit;
+  font-size: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.2s ease;
+}
+
+.question-textarea:focus {
+  outline: none;
+  border-color: #0084ff;
+  box-shadow: 0 0 0 2px rgba(0, 132, 255, 0.2);
 }
 
 .input-area button {
-  padding: 10px 20px;
+  padding: 12px 24px;
   background-color: #0084ff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 20px;
   cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  min-height: 44px;
+}
+
+.input-area button:hover {
+  background-color: #0066cc;
 }
 
 .input-area button:disabled {
@@ -115,4 +155,174 @@
   outline: none;
   border-color: #0066cc;
   box-shadow: 0 0 0 2px rgba(0,102,204,0.2);
+}
+
+/* Improved image styling */
+.context-container {
+  margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.image-container {
+  max-width: 400px;  /* Increased max-width */
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  transition: transform 0.2s ease;
+}
+
+.image-container:hover {
+  transform: scale(1.02);
+}
+
+.context-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+}
+
+/* Custom scrollbar for better visual */
+.chat-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.chat-box::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.chat-box::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.chat-box::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Fixed markdown styling with reduced spacing */
+.markdown-content {
+  width: 100%;
+}
+
+/* Reduce default margin for all markdown elements */
+.markdown-content * {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3 {
+  font-weight: bold;
+  margin-top: 0.6em;
+  margin-bottom: 0.3em;
+  display: block;
+}
+
+.markdown-content h1 {
+  font-size: 1.4em;
+}
+
+.markdown-content h2 {
+  font-size: 1.2em;
+}
+
+.markdown-content h3 {
+  font-size: 1.1em;
+}
+
+.markdown-content p {
+  margin-bottom: 0.5em;
+  line-height: 1.4;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin: 0.4em 0;
+  padding-left: 1.5em;
+}
+
+.markdown-content li {
+  margin-bottom: 0.2em;
+}
+
+/* Tighten list items */
+.markdown-content li p {
+  margin: 0.1em 0;
+}
+
+.markdown-content code {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 2px 4px;
+  border-radius: 3px;
+  font-family: monospace;
+}
+
+.markdown-content pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  padding: 8px;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 0.5em 0;
+}
+
+.markdown-content strong,
+.markdown-content b {
+  font-weight: bold;
+}
+
+.markdown-content em,
+.markdown-content i {
+  font-style: italic;
+}
+
+/* Fix the markdown rendering in bot messages */
+.chat-bubble.bot .markdown-content {
+  color: #1a1a1a;
+}
+
+/* Make sure the markdown content doesn't overflow */
+.chat-bubble.bot .markdown-content * {
+  max-width: 100%;
+}
+
+/* Reduce spacing for numbered lists */
+.markdown-content ol {
+  padding-left: 1.5em;
+  counter-reset: item;
+}
+
+.markdown-content ol > li {
+  display: block;
+  margin-bottom: 0.2em;
+}
+
+/* Add spacing between list items with content but not too much */
+.markdown-content li + li {
+  margin-top: 0.2em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chat-box {
+    width: 95%;
+    padding: 15px;
+  }
+  
+  .chat-bubble {
+    max-width: 90%;
+    padding: 12px 15px;
+  }
+  
+  .image-container {
+    max-width: 100%;
+  }
 }

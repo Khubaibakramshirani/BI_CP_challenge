@@ -10,10 +10,15 @@ app = FastAPI()
 # Add CORS middleware configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"], #"http://localhost:3000"#,  # Allow local development   #"https://bounceinsights-coding-challenge.onrender.com"  # Replace with your actual Render URL
+    allow_origins=[
+        "http://localhost:3000",  # React dev server
+        "http://127.0.0.1:3000",
+        "https://rag-app-13737131325.europe-west1.run.app",  # Your production URL
+        "*"  # This allows any origin (use only for development)
+    ],
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Define a root route

@@ -203,10 +203,10 @@ async def process_query(request: QueryRequest):
         
         logger.info(f"Processing query for document type: {request.documentType}")
         logger.info("**process_query**")
-        # Get the appropriate retriever based on document type
-        #retriever, saved_data = get_retriever(request.documentType)
+        
         retriever = get_retriever(request.documentType)
         print("\n**Retriever created**\n")
+        
         # Create a new chain with the selected retriever
         chain_with_sources = {
             "context": retriever | RunnableLambda(parse_docs),
@@ -224,15 +224,49 @@ async def process_query(request: QueryRequest):
         
         if not response or 'response' not in response:
             raise HTTPException(status_code=500, detail="Invalid response from chain")
+        
+        # More comprehensive check to determine if context should be stripped
+        def should_strip_context(response_text: str) -> bool:
+            no_info_keywords = [
+                "i'm unable to determine", 
+                "i cannot find", 
+                "i do not know", 
+                "there is no information",
+                "not enough context",
+                "based solely on the context you provided",
+                "unable to provide specific details",
+                "cannot determine",
+                "can't determine"
+
+            ]
             
-        return {"response": response['response']}
+            return any(keyword in response_text.lower() for keyword in no_info_keywords)
+        
+        # Apply context stripping if needed
+        if should_strip_context(response['response']):
+            return {
+                "response": response['response'],
+                "context": {
+                    "texts": [],
+                    "images": []
+                }
+            }
+        
+        return {
+            "response": response['response'],
+            "context": {
+                "texts": [{"text": t.text, "metadata": t.metadata} for t in response['context']['texts']],
+                "images": response['context']['images']  # These are already base64 encoded
+            }
+        }
     except Exception as e:
         logger.error(f"Error processing query**: {str(e)}")
         raise HTTPException(
             status_code=500,
             detail=f"Error processing query??: {str(e)}"
         )
-
+        
+        
 # Optional: Add a health check endpoint
 @router_fast_api.get("/health")
 async def health_check():
